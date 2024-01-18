@@ -5,10 +5,10 @@ class TaskExeption extends Exception{}
     private $_title;
     private $_description;
     private $_deadline;
-    private $_completed ;
+    private $_completed;
     // private $_id;
 
- public function __construct($id,$title,$des,$deadline,$completed){
+ public function __construct($id,$title,$description,$deadline,$completed){
 $this->setID($id);
 $this->setTitle($title);
 $this->setDescription($description);
@@ -19,7 +19,7 @@ $this->setCompleted($completed);
     public function getId(){
         return $this->_id;
     }
-    public function getIdgetTitle(){
+    public function getTitle(){
         return $this->_title;
     }
     public function getDescription (){
@@ -46,14 +46,14 @@ public function setTitle($title){
     $this->_title=$title;
 }
 public function setDescription($description){
-    if(($description!==0)&& (strlen($description>16777215))){
+    if(($description!==0)&& (strlen($description <16777215))){
         throw new TaskException("Task title erro");
     }
     $this->_description=$description;
 }
   
 public function setDeadline($deadline){
-    if(($deadline!==null)&&  date_forma(date_create_from_forma('d/m/y',$deadline),'d/m/y H:i') !=$deadline){
+    if(($deadline!==null)&&  date_format(date_create_from_format('d/m/y',$deadline),'d/m/y H:i') !=$deadline){
         throw new TaskException("Task deadline date time erro");
     }
     $this->_deadline=$deadline;
@@ -75,7 +75,7 @@ public function returnTaskAsArray(){
     $task['description']=$this->getDescription();
     $task['deadline']=$this->getDeadline();
     $task['completed']=$this->getCompleted();
-    return $stask;
+    return $task;
 }
 
  }

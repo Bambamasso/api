@@ -7,13 +7,13 @@ class Response{
     private $_toCache=false;
     private $_responseData=array();
 
-public function setScuccess($success){
+public function setSuccess($success){
     $this->_seccess=$success;
 }
 public function sethttpStatusCode($httpStatusCode){
     $this->_httpStatusCode=$httpStatusCode;
 }
-public function setSMessages($messages){
+public function setMessage($messages){
     $this->_messages[]=$messages;
 }
 public function setData($success){
@@ -23,7 +23,7 @@ public function toCache($toCache){
     $this->_toCache=$toCache;
 }
 public function send(){
-   header('conten-type: application/json;charset=utf-8');
+   header('content-type: application/json;charset=utf-8');
    if($this->_toCache==true){
     header('cache-control:max-age=60');
    }else{
@@ -36,12 +36,12 @@ $this->_responseData['statusCode']=500;
 $this->_responseData['success']=false;
 $this->_responseData['statusCode']=500;
 $this->_addMessage['Response creation error']=500;
-$this->_responseData['message']=$this->_message;
+$this->_responseData['message']=$this->_messages;
    }else{
     http_response_code($this->_httpStatusCode);
     $this->_responseData['statusCode']=$this->httpStatusCode;
     $this->_responseData['success']=$this->_success;
-    $this->_responseData['message']=$this->_message;
+    $this->_responseData['message']=$this->_messages;
     $this->_responseData['data']=$this->data;
    }
    echo json_encode($this->_responseData);
